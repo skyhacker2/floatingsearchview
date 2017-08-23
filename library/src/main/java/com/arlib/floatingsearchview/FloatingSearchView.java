@@ -645,6 +645,13 @@ public class FloatingSearchView extends FrameLayout {
             }
         });
 
+        mSearchInput.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.showSoftKeyboard(getContext(), mSearchInput);
+            }
+        });
+
         mLeftAction.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
