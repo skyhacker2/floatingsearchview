@@ -18,5 +18,10 @@
             android:checked="false"
             android:icon="@drawable/ic_lightbulb_outline_black_24dp"
             android:title="@string/action_example_scrolling_search_bar"/>
+        <item
+            android:id="@+id/suggestion_search_bar"
+            android:checked="false"
+            android:icon="@drawable/ic_lightbulb_outline_black_24dp"
+            android:title="百度搜索建议"/>
     </group>
 </menu>

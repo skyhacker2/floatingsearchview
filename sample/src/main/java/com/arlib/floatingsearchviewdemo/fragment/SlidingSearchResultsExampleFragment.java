@@ -103,6 +103,7 @@ public class SlidingSearchResultsExampleFragment extends BaseExampleFragment {
             }
         });
 
+
         mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(final SearchSuggestion searchSuggestion) {

@@ -2,9 +2,11 @@ package com.arlib.floatingsearchview.util.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class SearchInputView extends EditText {
 
