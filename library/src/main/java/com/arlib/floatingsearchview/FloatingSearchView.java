@@ -39,6 +39,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
 import android.support.v4.view.ViewPropertyAnimatorUpdateListener;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.view.menu.MenuBuilder;
@@ -160,6 +161,8 @@ public class FloatingSearchView extends FrameLayout {
     private boolean mShowSearchKey;
     private boolean mMenuOpen = false;
     private MenuView mMenuView;
+    private TextView mTextMenu;
+    private OnTextMenuClickListener mOnTextMenuClickListener;
     private int mMenuId = -1;
     private int mActionMenuItemColor;
     private int mOverflowIconColor;
@@ -324,6 +327,10 @@ public class FloatingSearchView extends FrameLayout {
         void onFocusCleared();
     }
 
+    public interface OnTextMenuClickListener {
+        void onClick(View view);
+    }
+
     public FloatingSearchView(Context context) {
         this(context, null);
     }
@@ -350,6 +357,7 @@ public class FloatingSearchView extends FrameLayout {
         initDrawables();
         mClearButton.setImageDrawable(mIconClear);
         mMenuView = (MenuView) findViewById(R.id.menu_view);
+        mTextMenu = (TextView) findViewById(R.id.menu_text);
 
         mDivider = findViewById(R.id.divider);
 
@@ -677,6 +685,15 @@ public class FloatingSearchView extends FrameLayout {
                     }
                 }
 
+            }
+        });
+
+        mTextMenu.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnTextMenuClickListener != null) {
+                    mOnTextMenuClickListener.onClick(mTextMenu);
+                }
             }
         });
 
@@ -1427,6 +1444,10 @@ public class FloatingSearchView extends FrameLayout {
             if (mFocusChangeListener != null) {
                 mFocusChangeListener.onFocus();
             }
+            mTextMenu.animate().translationX(20).alpha(0).setDuration(300)
+                    .setInterpolator(new FastOutSlowInInterpolator())
+                    .start();
+//            mTextMenu.setVisibility(GONE);
         } else {
             mMainLayout.requestFocus();
             clearSuggestions();
@@ -1447,6 +1468,9 @@ public class FloatingSearchView extends FrameLayout {
             if (mFocusChangeListener != null) {
                 mFocusChangeListener.onFocusCleared();
             }
+            mTextMenu.animate().translationX(0).alpha(1).setDuration(300)
+                    .setInterpolator(new FastOutSlowInInterpolator())
+                    .start();
         }
 
         //if we don't have focus, we want to allow the client's views below our invisible
@@ -1652,6 +1676,18 @@ public class FloatingSearchView extends FrameLayout {
     public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
         this.mActionMenuItemListener = listener;
         //todo reset menu view listener
+    }
+
+    public OnTextMenuClickListener getOnTextMenuClickListener() {
+        return mOnTextMenuClickListener;
+    }
+
+    public void setOnTextMenuClickListener(OnTextMenuClickListener onTextMenuClickListener) {
+        mOnTextMenuClickListener = onTextMenuClickListener;
+    }
+
+    public TextView getTextMenu() {
+        return mTextMenu;
     }
 
     private void openMenuDrawable(final DrawerArrowDrawable drawerArrowDrawable, boolean withAnim) {
