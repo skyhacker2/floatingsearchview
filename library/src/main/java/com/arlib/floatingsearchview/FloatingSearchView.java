@@ -1447,6 +1447,7 @@ public class FloatingSearchView extends FrameLayout {
             mTextMenu.animate().translationX(20).alpha(0).setDuration(300)
                     .setInterpolator(new FastOutSlowInInterpolator())
                     .start();
+            mTextMenu.setEnabled(false);
 //            mTextMenu.setVisibility(GONE);
         } else {
             mMainLayout.requestFocus();
@@ -1471,6 +1472,7 @@ public class FloatingSearchView extends FrameLayout {
             mTextMenu.animate().translationX(0).alpha(1).setDuration(300)
                     .setInterpolator(new FastOutSlowInInterpolator())
                     .start();
+            mTextMenu.setEnabled(true);
         }
 
         //if we don't have focus, we want to allow the client's views below our invisible
