@@ -345,6 +345,7 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
             if (mForceShowIcon) {
                 ((ListMenuItemView) convertView).setForceShowIcon(true);
             }
+            ((ListMenuItemView)convertView).setGroupDividerEnabled(getItem(position).getGroupId() != 0);
             itemView.initialize(getItem(position), 0);
             return convertView;
         }
