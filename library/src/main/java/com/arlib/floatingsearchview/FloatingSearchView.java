@@ -1542,7 +1542,7 @@ public class FloatingSearchView extends FrameLayout {
                     fadeArrowAnim.setStartDelay(150);
 
                     AnimatorSet animSet = new AnimatorSet();
-                    animSet.setDuration(500);
+                    animSet.setDuration(250);
                     animSet.playTogether(searchInputTransXAnim, transXArrowAnim, scaleXArrowAnim, scaleYArrowAnim, fadeArrowAnim);
                     animSet.start();
                 } else {
